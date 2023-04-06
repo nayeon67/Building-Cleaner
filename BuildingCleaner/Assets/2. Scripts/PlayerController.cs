@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,36 +20,34 @@ public class PlayerController : MonoBehaviour
         theBS = FindObjectOfType<BackgroundScroller>();
     }
 
-
-    void Update()
+    public void SetPos(string button) 
     {
-        if (!isMoving) //움직이고 있지 않을 때
-        {   
-            if(Input.GetKeyDown(KeyCode.W)) 
-            {
-                if(playerPosY == 14) { theBS.BackgorundScroll(); } //배경 스크롤
-                else 
-                { 
-                    StartCoroutine(PlayerMove(Vector2.up));
-                    playerPosY++; 
-                }
-            }    
-            else if (Input.GetKeyDown(KeyCode.S) && playerPosY != 1)
-            {
-                StartCoroutine(PlayerMove(Vector2.down));
-                playerPosY--;
-            }   
-            else if (Input.GetKeyDown(KeyCode.A) && playerPosX != 1)
-            {
-                StartCoroutine(PlayerMove(Vector2.left * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해
-                playerPosX--;
-            }  
-            else if (Input.GetKeyDown(KeyCode.D) && playerPosX != 4)
-            {
-                StartCoroutine(PlayerMove(Vector2.right * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해  
-                playerPosX++;
+        if (isMoving) { return; }
+        
+        if (button == "up") 
+        {
+            if(playerPosY == 7) { theBS.BackgorundScroll(); } //배경 스크롤
+            else 
+            { 
+                StartCoroutine(PlayerMove(Vector2.up));
+                playerPosY++; 
             }
-                
+        }
+        else if (button == "down" && playerPosY != 1)
+        {
+            StartCoroutine(PlayerMove(Vector2.down));
+            playerPosY--;
+        }
+        else if (button == "left" && playerPosX != 1)
+        {
+            StartCoroutine(PlayerMove(Vector2.left * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해
+            playerPosX--;
+        }
+
+        else if (button == "right" && playerPosX != 4)
+        {
+            StartCoroutine(PlayerMove(Vector2.right * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해  
+            playerPosX++;
         }
     }
 
