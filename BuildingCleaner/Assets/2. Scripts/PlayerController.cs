@@ -7,14 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     private bool isMoving; //움직이는 상태인지 확인
     private float moveTime; //이동 시간
-    private float myScaleX; //플레이어 X크기
     private int playerPosX;
     private int playerPosY;
     private BackgroundScroller theBS;
     void Start()
     {
         moveTime = 0.2f;
-        myScaleX = transform.localScale.x;
         playerPosX = 2;
         playerPosY = 1;
         theBS = FindObjectOfType<BackgroundScroller>();
@@ -40,13 +38,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (button == "left" && playerPosX != 1)
         {
-            StartCoroutine(PlayerMove(Vector2.left * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해
+            StartCoroutine(PlayerMove(Vector2.left)); //플레이어의 x 크기만큼 이동하기 위해
             playerPosX--;
         }
 
         else if (button == "right" && playerPosX != 4)
         {
-            StartCoroutine(PlayerMove(Vector2.right * myScaleX)); //플레이어의 x 크기만큼 이동하기 위해  
+            StartCoroutine(PlayerMove(Vector2.right)); //플레이어의 x 크기만큼 이동하기 위해  
             playerPosX++;
         }
     }

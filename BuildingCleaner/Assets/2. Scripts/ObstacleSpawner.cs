@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    private float[] probs = new float[3]{50.0f, 30.0f, 20.0f}; //장애물 확률
+    private float totalProbs = 100.0f; //확률 합
     [SerializeField] private GameObject brokenGlass; //깨진 유리창
     [SerializeField] private GameObject[] stains; //얼룩들
-    private BackgroundScroller theBS; 
     private int[] obstacleLocations = new int[4];//장애물 위치들
+    private BackgroundScroller theBS; 
     void Start()
     {
         theBS = FindObjectOfType<BackgroundScroller>();
@@ -24,6 +26,25 @@ public class ObstacleSpawner : MonoBehaviour
                 obstacle.transform.parent = theBS.backgrounds[i].transform;
             }
         }
+    }
+
+    private int ChooseNumber() //확률에 따른 얼룩 선택
+    {
+        float randomValue = Random.value * totalProbs;
+
+        for(int i=0; i<probs.Length; i++)
+        {
+            if(randomValue < probs[i])
+            {
+                return i;
+            }
+            else 
+            {
+                randomValue -= probs[i];
+            }
+        }
+
+        return probs.Length - 1;
     }
 
     public void SpawnObstacle()
@@ -50,38 +71,28 @@ public class ObstacleSpawner : MonoBehaviour
         {
             int num = Random.Range(0, 2);
 
-        //얼룩 생성
-        for(int i = 0; i < num; i++)
-        {
-            //랜덤 위치 설정
-            int x = Random.Range(0, 4);
-            while(obstacleLocations[x] == 1)
+            //얼룩 생성
+            for(int i = 0; i < num; i++)
             {
-               x = Random.Range(0, 4); //해당 위치에 이미 다른 것이 있는지 확인
-            }
-            
-            int n = Random.Range(1, 11);
-            
-            GameObject stain;
+                //랜덤 위치 설정
+                int x = Random.Range(0, 4);
+                while(obstacleLocations[x] == 1)
+                {
+                x = Random.Range(0, 4); //해당 위치에 이미 다른 것이 있는지 확인
+                }
+                
+                GameObject stain;
 
-            //얼룩 단계 설정
-            if(n <= 5) { stain = Instantiate(stains[0], new Vector3(x, 7, 0), Quaternion.identity); }
-            else if(n <= 8) { stain = Instantiate(stains[1], new Vector3(x, 7, 0), Quaternion.identity); }
-            else { stain = Instantiate(stains[2], new Vector3(x, 7, 0), Quaternion.identity); }
-            
-            //얼룩 부모를 제일 위 유리창으로 설정
-            stain.transform.parent = theBS.backgrounds[7].transform;
-            obstacleLocations[x] = 1;
+                //얼룩 단계 설정
+                int randomPoint = ChooseNumber();
+                stain = Instantiate(stains[randomPoint], new Vector3(x, 7, 0), Quaternion.identity); 
+                //얼룩 부모를 제일 위 유리창으로 설정
+                stain.transform.parent = theBS.backgrounds[7].transform;
+                obstacleLocations[x] = 1;
+            }
         }
 
         for(int i = 0; i < obstacleLocations.Length; i++) { obstacleLocations[i] = 0; }
-        }
-        
     }
-
-    // Update is called once per frame
-    void Update()
-    {
         
-    }
 }
