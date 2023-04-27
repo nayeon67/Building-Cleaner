@@ -39,12 +39,22 @@ public class ObstacleManager : MonoBehaviour
     private int count;
     void Start()
     {
-        maxObstacleNum = 5;
+        maxObstacleNum = 4;
         theOS = FindObjectOfType<ObstacleSpawner>();
     }
 
     public void CreateObstacle()
     {
+        //장애물 위치 배열 초기화
+        //obstacleLocation.GetLength(0) : 행의 길이
+        //obstacleLocation.GetLength(1) : 열의 길이
+        for (int i = 0; i < obstacleLocation.GetLength(0); i++)
+        {
+            for (int j = 0; j < obstacleLocation.GetLength(1); j++)
+            {
+                obstacleLocation[i,j] = 0;
+            }
+        }
         obstacle = Instantiate(obstacleObject);
         theOS.SpawnObstacle();
     }
