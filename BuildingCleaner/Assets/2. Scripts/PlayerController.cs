@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private int playerPosX; //플레이어가 위치한 X
     private int playerPosY; //플레이어가 위치한 Y
     private BackgroundScroller theBS;
+
+    public int hpNum = 3;   // hp 수
+
     void Start()
     {
         moveTime = 0.2f; 

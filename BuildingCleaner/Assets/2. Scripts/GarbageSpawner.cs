@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GarbageSpawner : MonoBehaviour
 {
-    [SerializeField] Transform[] spawnPosition;
-    [SerializeField] GameObject garbagePrefab;
+    [SerializeField] Transform[] spawnPosition; // 생성되는 위치
+    [SerializeField] GameObject garbagePrefab;  // 쓰레기 프리팹
     
     void Start()
     {
@@ -18,6 +18,7 @@ public class GarbageSpawner : MonoBehaviour
         
     }
 
+    // 위치와 스폰시간을 랜덤으로 정해서 생성
     IEnumerator randSpawn()
     {
         while(true)
