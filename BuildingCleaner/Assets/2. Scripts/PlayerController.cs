@@ -10,12 +10,73 @@ public class PlayerController : MonoBehaviour
     private int playerPosX; //플레이어가 위치한 X
     private int playerPosY; //플레이어가 위치한 Y
     private BackgroundScroller theBS;
+    //플레이어 애니메이터
+    private Animator playerAnim;
+    //닦아야 하는 횟수
+    private int num;
+    //얼룩과 부딪혔는지
+    private bool isContact;
+    //몇번 닦았는지
+    private int count;
+    //부딪힌 얼룩
+    private GameObject stain;
     void Start()
     {
         moveTime = 0.2f; 
         playerPosX = 2;
         playerPosY = 1;
         theBS = FindObjectOfType<BackgroundScroller>();
+        playerAnim = GetComponent<Animator>();
+    }
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if (other.tag == "stain1")
+        {
+            num = 1;
+            isContact = true;
+            stain = other.gameObject;
+        }
+        else if (other.tag == "stain2")
+        {
+            num = 2;
+            isContact = true;
+            stain = other.gameObject;
+        }
+
+        else if (other.tag == "stain3")
+        {
+            num = 3;
+            isContact = true;
+            stain = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if (other.tag == "stain1" || other.tag == "stain2" || other.tag == "stain3")
+        {
+            isContact = false;
+            num = 0;
+        }
+    }
+
+    public void Cleanning()
+    {
+        playerAnim.SetTrigger("Clean");
+
+        if(isContact)
+        {
+            count++;
+
+            Color color  =  stain.GetComponent<SpriteRenderer>().color;
+
+            if(count == num)
+            {
+                Destroy(stain);
+                count = 0;
+            }
+        }
+        
     }
 
     public void SetPos(string button) 
@@ -25,17 +86,28 @@ public class PlayerController : MonoBehaviour
         if (button == "up") 
         {
             //배경 스크롤
-            if(playerPosY == 7) { theBS.BackgorundScroll(); } 
+            if(playerPosY == 7) 
+            { 
+                theBS.BackgorundScroll(); 
+                Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+
+                for(int i = 0; i < obstacles.Length; i++)
+                {
+                    obstacles[i].Down();
+                }
+            } 
             else 
             { 
                 StartCoroutine(PlayerMove(Vector2.up));
                 playerPosY++; 
             }
+            GameManager.Instance.height++;
         }
         else if (button == "down" && playerPosY != 1)
         {
             StartCoroutine(PlayerMove(Vector2.down));
             playerPosY--;
+            GameManager.Instance.height--;
         }
         else if (button == "left" && playerPosX != 1)
         {
