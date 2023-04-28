@@ -21,21 +21,36 @@ public class ObstacleSpawner : MonoBehaviour
     {
         theBS = FindObjectOfType<BackgroundScroller>();
 
-        //깨진 유리창 생성
-        for(int i = 0; i < 8; i++)
-        {
-            //몇개를 생성할지 랜덤으로 선택
-            int num = Random.Range(0, 2);
+        //장애물 개수 설정
+        SetAmount();
 
-            for(int j = 0; j < num; j++)
-            {
-                //랜덤 위치
-                int x = Random.Range(0, 4); 
-                //깨진 유리창 생성
-                GameObject obstacle = Instantiate(brokenGlass, new Vector2(x, i), Quaternion.identity);
-                //장애물의 부모를 해당 위치의 유리창으로 설정
-                obstacle.transform.parent = theBS.backgrounds[i].transform;
-            }
+       //얼룩 생성
+        for(int i = 0; i < stainNum; i++)
+        {
+            Vector2 spawnPos = SetLocation();
+            //화면에 생성하기 위해
+            spawnPos.y -= 8;
+
+            int num = ChooseNumber();
+
+            GameObject stain;
+            stain = Instantiate(stains[num], spawnPos, Quaternion.identity);
+            //장애물의 부모를 해당 위치의 유리창으로 설정
+            stain.transform.parent = theBS.backgrounds[(int)spawnPos.y].transform;
+
+        }
+
+        //깨진 유리창 생성
+        for(int i = 0; i < brokenGlassNum; i++)
+        {
+            Vector2 spawnPos = SetLocation();
+            //화면에 생성하기 위해
+            spawnPos.y -= 8;
+
+            GameObject glass;
+            glass = Instantiate(brokenGlass, spawnPos, Quaternion.identity);
+            //장애물의 부모를 해당 위치의 유리창으로 설정
+            glass.transform.parent = theBS.backgrounds[(int)spawnPos.y].transform;
         }
     }
 
@@ -72,18 +87,20 @@ public class ObstacleSpawner : MonoBehaviour
     //얼룩의 위치 설정
     private Vector2 SetLocation()
     { 
+        //랜덤 좌표
         int x = Random.Range(0, 4);
         int y = Random.Range(0, 8);
             
-
+        //랜덤 좌표에 이미 장애물이 있는지 확인
         while(ObstacleManager.Instance.obstacleLocation[y, x] != 0)
         {
             x = Random.Range(0, 4);
             y = Random.Range(0, 8);
         }
-
+        //해당 좌표에 장애물이 있음을 표시
         ObstacleManager.Instance.obstacleLocation[y, x] = 1;
 
+        //화면 위에 생성하기 위해 y에 8을 더함
         Vector2 position = new Vector2(x, y+=8);
         return position;
         

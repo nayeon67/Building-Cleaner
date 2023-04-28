@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
+    //싱글톤
     private static ObstacleManager instance = null;
     public static ObstacleManager Instance
     {
@@ -27,19 +28,21 @@ public class ObstacleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        maxObstacleNum = 4;
     }
 
     //최대로 생성할 수 있는 장애물 수
     public int maxObstacleNum;
     //장애물 위치
     public int[,] obstacleLocation = new int[8, 4]; 
-    [SerializeField] GameObject obstacleObject; //전체 장애물을 담을 오브젝트
+    //전체 장애물을 담을 오브젝트
+    [SerializeField] GameObject obstacleObject; 
+    //현재 생성된 장애물
     public GameObject obstacle;
     private ObstacleSpawner theOS;
-    private int count;
     void Start()
     {
-        maxObstacleNum = 4;
         theOS = FindObjectOfType<ObstacleSpawner>();
     }
 
