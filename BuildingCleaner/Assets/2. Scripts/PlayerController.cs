@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private float moveTime; //이동 시간
     private int playerPosX; //플레이어가 위치한 X
     private int playerPosY; //플레이어가 위치한 Y
+    private int playerHp = 3; //플레이어 목숨
     private BackgroundScroller theBS;
     //플레이어 애니메이터
     private Animator playerAnim;
@@ -49,6 +50,11 @@ public class PlayerController : MonoBehaviour
             isContact = true;
             stain = other.gameObject;
         }
+
+        if (other.tag == "Garbage" && other.tag == "BrokenGlass")
+        {
+            GetDamage();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
@@ -60,6 +66,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void GetDamage()
+    {
+        playerHp--;
+        GameManager.Instance.GameOver();
+
+    }
+
     public void Cleanning()
     {
         playerAnim.SetTrigger("Clean");
@@ -69,7 +82,13 @@ public class PlayerController : MonoBehaviour
             count++;
 
             Color color  =  stain.GetComponent<SpriteRenderer>().color;
+<<<<<<< HEAD
         
+=======
+            color.a -= (float)1/num;
+            stain.GetComponent<SpriteRenderer>().color = color;
+
+>>>>>>> 8ce360c0adff4511a263733270643fabf2ff4850
             if(count == num)
             {
                 Destroy(stain);

@@ -29,7 +29,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             Vector2 spawnPos = SetLocation();
             //화면에 생성하기 위해
-            spawnPos.y -= 8;
+            spawnPos.y -= 7;
 
             int num = ChooseNumber();
 
@@ -45,7 +45,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             Vector2 spawnPos = SetLocation();
             //화면에 생성하기 위해
-            spawnPos.y -= 8;
+            spawnPos.y -= 7;
 
             GameObject glass;
             glass = Instantiate(brokenGlass, spawnPos, Quaternion.identity);
