@@ -32,4 +32,9 @@ public class GameManager : MonoBehaviour
     }
 
     public int height;
+
+    public void GameOver()
+    {
+        
+    }
 }
