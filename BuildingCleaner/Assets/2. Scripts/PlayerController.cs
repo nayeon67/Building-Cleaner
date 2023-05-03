@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             count++;
 
             Color color  =  stain.GetComponent<SpriteRenderer>().color;
-
+        
             if(count == num)
             {
                 Destroy(stain);
