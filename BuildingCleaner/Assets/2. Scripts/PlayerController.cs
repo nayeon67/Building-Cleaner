@@ -11,11 +11,6 @@ public class PlayerController : MonoBehaviour
     private int playerPosY; //플레이어가 위치한 Y
     private int playerHp = 3; //플레이어 목숨
     private BackgroundScroller theBS;
-<<<<<<< HEAD
-
-    public int hpNum = 3;   // hp 수
-
-=======
     //플레이어 애니메이터
     private Animator playerAnim;
     //닦아야 하는 횟수
@@ -26,7 +21,6 @@ public class PlayerController : MonoBehaviour
     private int count;
     //부딪힌 얼룩
     private GameObject stain;
->>>>>>> origin/main
     void Start()
     {
         moveTime = 0.2f; 
