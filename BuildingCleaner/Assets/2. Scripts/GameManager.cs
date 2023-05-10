@@ -32,9 +32,14 @@ public class GameManager : MonoBehaviour
     }
 
     public int height;
+    public float CameraSpeed = 1.0f;
+
+    private void Start() {
+        CameraSpeed = 1.0f;
+    }
 
     public void GameOver()
     {
-        
+        Debug.Log("이걸 죽네 ㅋ");
     }
 }

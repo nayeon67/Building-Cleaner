@@ -24,9 +24,7 @@ public class Obstacle : MonoBehaviour
     public void Down()
     {
         //y좌표를 한칸 내리기
-        float y = transform.position.y;
-        y--;
-        transform.position = new Vector2(transform.position.x, y);
+        transform.Translate(Vector2.down);
 
         count++;
 

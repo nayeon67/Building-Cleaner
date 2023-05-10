@@ -28,10 +28,16 @@ public class ObstacleSpawner : MonoBehaviour
         for(int i = 0; i < stainNum; i++)
         {
             Vector2 spawnPos = SetLocation();
-            //화면에 생성하기 위해
-            spawnPos.y -= 7;
 
+            while(spawnPos.y == 8)
+            {
+                spawnPos = SetLocation();
+            }
+
+            //얼룩 고르기
             int num = ChooseNumber();
+            //화면에 생성하기 위해
+            spawnPos.y -= 8;
 
             GameObject stain;
             stain = Instantiate(stains[num], spawnPos, Quaternion.identity);
@@ -44,8 +50,12 @@ public class ObstacleSpawner : MonoBehaviour
         for(int i = 0; i < brokenGlassNum; i++)
         {
             Vector2 spawnPos = SetLocation();
+            while(spawnPos.y == 8)
+            {
+                spawnPos = SetLocation();
+            }
             //화면에 생성하기 위해
-            spawnPos.y -= 7;
+            spawnPos.y -= 8;
 
             GameObject glass;
             glass = Instantiate(brokenGlass, spawnPos, Quaternion.identity);
