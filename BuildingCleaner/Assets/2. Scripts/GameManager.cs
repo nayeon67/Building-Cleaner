@@ -31,11 +31,19 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public int height;
-    public float CameraSpeed = 1.0f;
+    private int height;
+    public float CameraSpeed;
 
     private void Start() {
-        CameraSpeed = 1.0f;
+        CameraSpeed = 0.5f;
+    }
+
+    public void SetHeight(int value)
+    {
+        height +=  value;
+
+        if (height >= 50) { ObstacleManager.Instance.maxObstacleNum = 8; }
+        else if (height >= 100) { ObstacleManager.Instance.maxObstacleNum = 12; }
     }
 
     public void GameOver()

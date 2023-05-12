@@ -28,8 +28,6 @@ public class ObstacleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        maxObstacleNum = 4;
     }
 
     //최대로 생성할 수 있는 장애물 수
@@ -44,6 +42,12 @@ public class ObstacleManager : MonoBehaviour
     void Start()
     {
         theOS = FindObjectOfType<ObstacleSpawner>();
+        maxObstacleNum = 4;
+    }
+
+    void Update() 
+    {
+        
     }
 
     public void CreateObstacle()

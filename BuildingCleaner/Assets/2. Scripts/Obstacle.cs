@@ -5,22 +5,17 @@ using UnityEngine.UI;
 
 public class Obstacle : MonoBehaviour
 {
-    //위로 가기 버튼
-    [SerializeField] Button upButton;
     //위로 가기 버튼을 몇번 눌렀는지 확인할 카운트
     private int count;
-    private PlayerController thePC;
     void Start()
     {
-        //위로 가기 버튼을 찾아 Down 함수 연결
-        upButton = GameObject.Find("Top").GetComponent<Button>();
-        //upButton.onClick.AddListener(Down);
     }
 
     private void Update() 
     {
-        
+
     }
+    
     public void Down()
     {
         //y좌표를 한칸 내리기

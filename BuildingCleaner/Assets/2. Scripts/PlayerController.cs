@@ -68,11 +68,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GetDamage()
+    public void GetDamage()
     {
         playerHp--;
-        GameManager.Instance.GameOver();
-
+        if(playerHp <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void Cleanning()
@@ -121,13 +123,14 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(PlayerMove(Vector2.up));
                 playerPosY++; 
             }
-            GameManager.Instance.height++;
+
+            GameManager.Instance.SetHeight(1);
         }
         else if (button == "down" && playerPosY != 1)
         {
             StartCoroutine(PlayerMove(Vector2.down));
             playerPosY--;
-            GameManager.Instance.height--;
+            GameManager.Instance.SetHeight(-1);
         }
         else if (button == "left" && playerPosX != 1)
         {

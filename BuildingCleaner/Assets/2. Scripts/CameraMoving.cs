@@ -16,7 +16,10 @@ public class CameraMoving : MonoBehaviour
     {
         //카메라 위로 이동
         transform.Translate(Vector2.up * GameManager.Instance.CameraSpeed * Time.deltaTime);
-        CheckPlayerInCamera();
+        if(!CheckTargetInCamera(player))
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void CameraDown()
@@ -28,14 +31,16 @@ public class CameraMoving : MonoBehaviour
         }
     }
 
-    private void CheckPlayerInCamera()
+    public bool CheckTargetInCamera(Transform target)
     {
-        //플레이어가 위치한 화면의 위치
-        Vector3 screenPoint = Camera.main.WorldToViewportPoint(player.position);
-        //플레이어가 화면 밑으로 사라지면
+        //대상이 위치한 화면의 위치
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(target.position);
+        //대상이 화면 밑으로 사라지면
         if( screenPoint.y < 0) 
         {
-            GameManager.Instance.GameOver();
+            return false;
         }
+
+        return true;
     }
 }
