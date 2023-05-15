@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - Garbage
+  - stain1
+  - stain2
+  - stain3
+  - BrokenGlass
+>>>>>>> f29dd4554621d65ac48f0a4bee064d2e73042a0b
   layers:
   - Default
   - TransparentFX
