@@ -47,7 +47,7 @@ public class ObstacleManager : MonoBehaviour
 
     void Update() 
     {
-        
+        if (GameManager.Instance)
     }
 
     public void CreateObstacle()
