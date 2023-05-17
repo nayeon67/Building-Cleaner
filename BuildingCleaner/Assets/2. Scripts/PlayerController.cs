@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     private int count;
     //부딪힌 얼룩
     private GameObject stain;
+<<<<<<< HEAD
+=======
     private CameraMoving theCM;
+>>>>>>> origin/kny
     void Start()
     {
         moveTime = 0.2f; 
