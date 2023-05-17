@@ -28,14 +28,15 @@ public class ObstacleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        maxObstacleNum = 4;
     }
 
     //최대로 생성할 수 있는 장애물 수
     public int maxObstacleNum;
     //장애물 위치
     public int[,] obstacleLocation = new int[8, 4]; 
+    //얼룩 생성 확률
+    
+    public float[] probs = new float[3]{50.0f, 30.0f, 20.0f}; //장애물 확률
     //전체 장애물을 담을 오브젝트
     [SerializeField] GameObject obstacleObject; 
     //현재 생성된 장애물
@@ -44,6 +45,7 @@ public class ObstacleManager : MonoBehaviour
     void Start()
     {
         theOS = FindObjectOfType<ObstacleSpawner>();
+        maxObstacleNum = 4;
     }
 
     public void CreateObstacle()

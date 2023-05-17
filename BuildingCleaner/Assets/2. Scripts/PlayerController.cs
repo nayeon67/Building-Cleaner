@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     private int count;
     //부딪힌 얼룩
     private GameObject stain;
+<<<<<<< HEAD
+=======
+    private CameraMoving theCM;
+>>>>>>> origin/kny
     void Start()
     {
         moveTime = 0.2f; 
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
         playerPosY = 1;
         theBS = FindObjectOfType<BackgroundScroller>();
         playerAnim = GetComponent<Animator>();
+        theCM = Camera.main.GetComponent<CameraMoving>();
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -66,11 +71,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GetDamage()
+    public void GetDamage()
     {
         playerHp--;
-        GameManager.Instance.GameOver();
-
+        if(playerHp <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void Cleanning()
@@ -110,19 +117,23 @@ public class PlayerController : MonoBehaviour
                 {
                     obstacles[i].Down();
                 }
+
+                //카메라 한 칸 내리기
+                theCM.CameraDown();
             } 
             else 
             { 
                 StartCoroutine(PlayerMove(Vector2.up));
                 playerPosY++; 
             }
-            GameManager.Instance.height++;
+
+            GameManager.Instance.SetHeight(1);
         }
         else if (button == "down" && playerPosY != 1)
         {
             StartCoroutine(PlayerMove(Vector2.down));
             playerPosY--;
-            GameManager.Instance.height--;
+            GameManager.Instance.SetHeight(-1);
         }
         else if (button == "left" && playerPosX != 1)
         {
