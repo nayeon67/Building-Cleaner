@@ -42,8 +42,15 @@ public class GameManager : MonoBehaviour
     {
         height +=  value;
 
-        if (height >= 50) { ObstacleManager.Instance.maxObstacleNum = 8; }
-        else if (height >= 100) { ObstacleManager.Instance.maxObstacleNum = 12; }
+        if (height == 50) 
+        { 
+            ObstacleManager.Instance.maxObstacleNum = 7; 
+        }
+        if (height == 100) 
+        { 
+            ObstacleManager.Instance.maxObstacleNum = 10;
+            ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};    
+        }
     }
 
     public void GameOver()

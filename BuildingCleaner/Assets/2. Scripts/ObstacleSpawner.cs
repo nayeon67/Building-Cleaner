@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    private float[] probs = new float[3]{50.0f, 30.0f, 20.0f}; //장애물 확률
     private float totalProbs = 100.0f; //확률 합
     [SerializeField] private GameObject brokenGlass; //깨진 유리창
     [SerializeField] private GameObject[] stains; //얼룩들
@@ -70,19 +69,19 @@ public class ObstacleSpawner : MonoBehaviour
         //Random.value = 0~1 값 랜덤 반환
         float randomValue = Random.value * totalProbs;
 
-        for(int i=0; i<probs.Length; i++)
+        for(int i=0; i<ObstacleManager.Instance.probs.Length; i++)
         {
-            if(randomValue < probs[i])
+            if(randomValue < ObstacleManager.Instance.probs[i])
             {
                 return i;
             }
             else 
             {
-                randomValue -= probs[i];
+                randomValue -= ObstacleManager.Instance.probs[i];
             }
         }
 
-        return probs.Length - 1;
+        return ObstacleManager.Instance.probs.Length - 1;
     }
 
     //장애물 개수를 설정
