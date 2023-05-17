@@ -2270,6 +2270,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxObstacleNum: 0
+  probs:
+  - 50
+  - 30
+  - 20
   obstacleObject: {fileID: 5255614120417282678, guid: 00d3afc8e2310bd40a0d53ac55baab9f, type: 3}
   obstacle: {fileID: 750107173}
 --- !u!4 &1947449052
