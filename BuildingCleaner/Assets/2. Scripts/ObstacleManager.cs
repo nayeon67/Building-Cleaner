@@ -48,14 +48,6 @@ public class ObstacleManager : MonoBehaviour
         maxObstacleNum = 4;
     }
 
-<<<<<<< HEAD
-    void Update() 
-    {
-        if (GameManager.Instance)
-    }
-
-=======
->>>>>>> kny
     public void CreateObstacle()
     {
         //장애물 위치 배열 초기화
