@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,14 +34,17 @@ public class GameManager : MonoBehaviour
 
     private int height;
     public float CameraSpeed;
+    private Text scoreText;
 
     private void Start() {
-        CameraSpeed = 0.5f;
+        CameraSpeed = 0.1f;
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     }
 
     public void SetHeight(int value)
     {
         height +=  value;
+        scoreText.text = height+"M";
 
         if (height == 50) 
         { 
