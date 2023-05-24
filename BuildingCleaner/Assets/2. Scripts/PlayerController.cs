@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     //부딪힌 얼룩
     private GameObject stain;
     private CameraMoving theCM;
+    private HpSystem theHS;
     void Start()
     {
         moveTime = 0.2f; 
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         theBS = FindObjectOfType<BackgroundScroller>();
         playerAnim = GetComponent<Animator>();
         theCM = Camera.main.GetComponent<CameraMoving>();
+        theHS = FindObjectOfType<HpSystem>();
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
             stain = other.gameObject;
         }
 
-        if (other.tag == "Garbage" && other.tag == "BrokenGlass")
+        if (other.tag == "Garbage" || other.tag == "BrokenGlass")
         {
             GetDamage();
         }
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public void GetDamage()
     {
         playerHp--;
+        theHS.SetHeartUI();
         if(playerHp <= 0)
         {
             GameManager.Instance.GameOver();
@@ -105,7 +108,7 @@ public class PlayerController : MonoBehaviour
         if (button == "up") 
         {
             //배경 스크롤
-            if(playerPosY == 7) 
+            if(playerPosY == 6) 
             { 
                 theBS.BackgorundScroll(); 
                 Obstacle[] obstacles = FindObjectsOfType<Obstacle>();

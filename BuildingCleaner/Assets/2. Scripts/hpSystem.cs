@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hpSystem : MonoBehaviour
+public class HpSystem : MonoBehaviour
 {
     [SerializeField] GameObject[] hearts;   // 빨간 하트
     [SerializeField] int heartCnt;
@@ -10,6 +10,7 @@ public class hpSystem : MonoBehaviour
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        heartCnt = 0;
     }
 
     
@@ -18,7 +19,7 @@ public class hpSystem : MonoBehaviour
 
     }
 
-    public void HpSystem()
+    public void SetHeartUI()
     {
         hearts[heartCnt].SetActive(false);
         heartCnt++;
