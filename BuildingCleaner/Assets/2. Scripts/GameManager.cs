@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
     private int height;
     public float CameraSpeed;
     private Text scoreText;
+    private SkyScroller theSS;
 
     private void Start() {
         CameraSpeed = 0.1f;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        theSS = FindObjectOfType<SkyScroller>();
     }
 
     public void SetHeight(int value)
@@ -49,11 +51,17 @@ public class GameManager : MonoBehaviour
         if (height == 50) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 7; 
+            theSS.SetSkyState(height);
         }
         if (height == 100) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 10;
-            ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};    
+            ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};  
+            theSS.SetSkyState(height);  
+        }
+        if (height == 200)
+        {
+            theSS.SetSkyState(height);  
         }
     }
 
