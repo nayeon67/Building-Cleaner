@@ -5,7 +5,7 @@ using UnityEngine;
 public class HpSystem : MonoBehaviour
 {
     [SerializeField] GameObject[] hearts;   // 빨간 하트
-    [SerializeField] int heartCnt;
+    private int heartCnt;
     private PlayerController playerController;
     void Start()
     {
@@ -21,6 +21,7 @@ public class HpSystem : MonoBehaviour
 
     public void SetHeartUI()
     {
+        if(heartCnt > 2) { return; }
         hearts[heartCnt].SetActive(false);
         heartCnt++;
     }

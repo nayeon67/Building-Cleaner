@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private GameObject stain;
     private CameraMoving theCM;
     private HpSystem theHS;
+    private SkyScroller theSS;
     void Start()
     {
         moveTime = 0.2f; 
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         theCM = Camera.main.GetComponent<CameraMoving>();
         theHS = FindObjectOfType<HpSystem>();
+        theSS = FindObjectOfType<SkyScroller>();
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -117,7 +119,8 @@ public class PlayerController : MonoBehaviour
                 {
                     obstacles[i].Down();
                 }
-
+                //하늘 한 칸 내리기
+                theSS.SkyDown();
                 //카메라 한 칸 내리기
                 theCM.CameraDown();
             } 
