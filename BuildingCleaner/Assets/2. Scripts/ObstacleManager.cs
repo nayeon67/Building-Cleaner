@@ -45,7 +45,7 @@ public class ObstacleManager : MonoBehaviour
     void Start()
     {
         theOS = FindObjectOfType<ObstacleSpawner>();
-        maxObstacleNum = 4;
+        maxObstacleNum = 3;
     }
 
     public void CreateObstacle()

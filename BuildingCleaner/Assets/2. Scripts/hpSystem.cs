@@ -12,13 +12,6 @@ public class HpSystem : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         heartCnt = 0;
     }
-
-    
-    void Update()
-    {
-
-    }
-
     public void SetHeartUI()
     {
         if(heartCnt > 2) { return; }
