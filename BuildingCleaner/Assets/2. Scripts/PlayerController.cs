@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -76,10 +77,17 @@ public class PlayerController : MonoBehaviour
     {
         playerHp--;
         theHS.SetHeartUI();
+        
+
         if(playerHp <= 0)
         {
+            playerAnim.SetTrigger("Die");
+            transform.DOMoveY(-3.0f, 2.5f);
             GameManager.Instance.GameOver();
         }
+
+        else { playerAnim.SetTrigger("getDamage"); }
+        
     }
 
     public void Cleanning()

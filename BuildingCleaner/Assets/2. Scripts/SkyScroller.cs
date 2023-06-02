@@ -24,14 +24,9 @@ public class SkyScroller : MonoBehaviour
     void Start()
     {
         skyState = SkyState.tree;
-        topPos = trees[1].transform.position;
+        topPos = trees[trees.Count-1].transform.position;
     }
 
-    void Update()
-    {
-        
-    }
-    
     public void SetSkyState(int height)
     {
         switch(height)

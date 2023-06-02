@@ -109,6 +109,37 @@ public class ObstacleSpawner : MonoBehaviour
         //해당 좌표에 장애물이 있음을 표시
         ObstacleManager.Instance.obstacleLocation[y, x] = 1;
 
+        //내 옆에 깨진 유리창이 이미 생성 되어 있느지 확인
+        if(x == 0)
+        {
+            if(ObstacleManager.Instance.obstacleLocation[y, x+1] == 1)
+            {
+                ObstacleManager.Instance.obstacleLocation[y==7?0:y+1, x+2] = 1;
+            }
+        }
+
+        else if(x == 3)
+        {
+            if(ObstacleManager.Instance.obstacleLocation[y, x-1] == 1)
+            {
+                ObstacleManager.Instance.obstacleLocation[y==7?0:y+1, x-2] = 1;
+            }
+        }
+
+        else
+        {
+            if(ObstacleManager.Instance.obstacleLocation[y, x-1] == 1)
+            {
+                ObstacleManager.Instance.obstacleLocation[y==7?0:y+1, x+1] = 1;
+            }
+            
+            if(ObstacleManager.Instance.obstacleLocation[y, x+1] == 1)
+            {
+                ObstacleManager.Instance.obstacleLocation[y==7?0:y+1, x-1] = 1;
+            }
+        }
+
+       
         //화면 위에 생성하기 위해 y에 8을 더함
         Vector2 position = new Vector2(x, y+=8);
         return position;
