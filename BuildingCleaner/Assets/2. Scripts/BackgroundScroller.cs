@@ -22,6 +22,7 @@ public class BackgroundScroller : MonoBehaviour
         if(count % 8 == 0)
         {
             ObstacleManager.Instance.CreateObstacle();
+            //하늘 생성
         }
         //배경 한 칸 내리기
         background.transform.position += Vector3.down;
