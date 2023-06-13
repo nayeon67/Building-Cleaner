@@ -33,15 +33,21 @@ public class GameManager : MonoBehaviour
     }
 
     private int height;
+    private int bestHeight;
     public float CameraSpeed;
     private Text scoreText;
     private Text scoreTextShadow;
+    private Text scoreResultText;
+    private Text bestScoreText;
     private SkyScroller theSS;
 
-    private void Start() {
+    private void Start() 
+    {
         CameraSpeed = 0.1f;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         scoreTextShadow = GameObject.Find("ScoreTextShadow").GetComponent<Text>();
+        scoreResultText = GameObject.Find("ScoreResultText").GetComponent<Text>();
+        scoreResultText = GameObject.Find("ScoreResultText").GetComponent<Text>();
         theSS = FindObjectOfType<SkyScroller>();
     }
 
@@ -72,6 +78,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if(height > bestHeight)
+        {
+            bestHeight = height;
+        }
         Debug.Log("이걸 죽네 ㅋ");
     }
 }
