@@ -15,6 +15,7 @@ public class Stain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //화면에서 벗어나면
         if (!theCM.CheckTargetInCamera(this.transform))
         {
             thePC.GetDamage();
