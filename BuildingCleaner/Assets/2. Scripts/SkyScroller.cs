@@ -10,7 +10,9 @@ public class SkyScroller : MonoBehaviour
     [SerializeField] private List<GameObject> blueSkys = new List<GameObject>();
     [SerializeField] private List<GameObject> spaceSkys = new List<GameObject>();
     [SerializeField] private List<GameObject> starSkys = new List<GameObject>();
+    [SerializeField] private GameObject gradationImage;
     private int count;
+    private bool gradation;
     private Vector2 topPos;
     private enum SkyState
     {
@@ -67,6 +69,13 @@ public class SkyScroller : MonoBehaviour
 
         else if (skyState == SkyState.space)
         {
+            if(gradation) 
+            { 
+                gradationImage.SetActive(true); 
+                gradation = false;
+                gradationImage.SetActive(false); 
+            }
+
             spaceSkys[0].transform.position = topPos;
             spaceSkys[0].SetActive(true);
             spaceSkys.Add(spaceSkys[0]);

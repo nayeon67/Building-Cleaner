@@ -13,15 +13,10 @@ public class GarbageSpawner : MonoBehaviour
     }
 
     
-    void Update()
-    {
-        
-    }
-
     // 위치와 스폰시간을 랜덤으로 정해서 생성
     IEnumerator randSpawn()
     {
-        while(true)
+        while(GameManager.Instance.isGameTime)
         {
             int positionNum = Random.Range(0, 4);
             Instantiate(garbagePrefab, spawnPosition[positionNum]);

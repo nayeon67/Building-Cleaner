@@ -75,15 +75,18 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage()
     {
-        playerHp--;
+       // playerHp--;
         theHS.SetHeartUI();
-        
 
         if(playerHp <= 0)
         {
             playerAnim.SetTrigger("Die");
-            transform.DOMoveY(-3.0f, 2.5f);
-            GameManager.Instance.GameOver();
+            transform.DOMoveY(-3.0f, 3f);
+
+            if(transform.position.y <= -3.0f) 
+            {
+                GameManager.Instance.GameOver();
+            }
         }
 
         else { playerAnim.SetTrigger("getDamage"); }
@@ -113,6 +116,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetPos(string button) 
     {
+        if(playerHp <= 0) { return; }
         if (isMoving) { return; }
         
         if (button == "up") 
@@ -139,6 +143,7 @@ public class PlayerController : MonoBehaviour
             }
 
             GameManager.Instance.SetHeight(1);
+            theSS.SetSkyState(GameManager.Instance.height);
         }
         else if (button == "down" && playerPosY != 1)
         {
@@ -161,6 +166,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PlayerMove(Vector2 dir)
     {
+
         isMoving = true;
         //경과시간
         float elapsedTime = 0.0f; 

@@ -14,6 +14,8 @@ public class CameraMoving : MonoBehaviour
     }
     void Update()
     {
+        if(!GameManager.Instance.isGameTime) { return; }
+        
         //카메라 위로 이동
         transform.Translate(Vector2.up * GameManager.Instance.CameraSpeed * Time.deltaTime);
         if(!CheckTargetInCamera(player))

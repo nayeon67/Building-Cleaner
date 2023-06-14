@@ -31,57 +31,60 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    public bool  isGameTime;
 
-    private int height;
+    public int height;
     private int bestHeight;
     public float CameraSpeed;
-    private Text scoreText;
-    private Text scoreTextShadow;
-    private Text scoreResultText;
-    private Text bestScoreText;
-    private SkyScroller theSS;
-
     private void Start() 
     {
+        isGameTime = true;
         CameraSpeed = 0.1f;
-        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        scoreTextShadow = GameObject.Find("ScoreTextShadow").GetComponent<Text>();
-        scoreResultText = GameObject.Find("ScoreResultText").GetComponent<Text>();
-        scoreResultText = GameObject.Find("ScoreResultText").GetComponent<Text>();
-        theSS = FindObjectOfType<SkyScroller>();
+        
+
+        if(PlayerPrefs.HasKey("BestScore")) 
+        {
+            bestHeight = PlayerPrefs.GetInt("BestScore"); 
+        }
     }
 
     public void SetHeight(int value)
     {
         height +=  value;
-        scoreText.text = scoreTextShadow.text = height +".M";
+        UIManager.Instance.SetHeightText(height);
 
         if (height == 50) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 5; 
             CameraSpeed = 0.15f;
-            theSS.SetSkyState(height);
+            
         }
         if (height == 100) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 7;
             CameraSpeed = 0.3f;
             ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};  
-            theSS.SetSkyState(height);  
         }
         if (height == 200)
         {
             CameraSpeed = 0.5f;
-            theSS.SetSkyState(height);  
         }
     }
 
     public void GameOver()
     {
+        isGameTime = false;
+        UIManager.Instance.SetScreenUI("GameOver");
+
+        PlayerPrefs.SetInt("BestScore", bestHeight);
+
+        //베스트 스코어 갱신
         if(height > bestHeight)
         {
             bestHeight = height;
         }
-        Debug.Log("이걸 죽네 ㅋ");
+
+        //게임 오버 화면에 스코어 띄우기
+        UIManager.Instance.SetGameOverUI(height, bestHeight);
     }
 }
