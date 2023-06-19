@@ -23,6 +23,7 @@ public class FallObstacle : MonoBehaviour
     
     void Update()
     {
+        if(!GameManager.Instance.isGameTime) { return; }
         // 떨어지는 스크립트
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
 

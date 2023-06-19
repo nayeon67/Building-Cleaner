@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     private Text scoreResultShadow;
     private Text bestScoreText;
     private Text bestScoreShadow;
+    private GameObject menuUI;
     public int heartCnt;
 
     private void Awake() 
@@ -63,6 +64,9 @@ public class UIManager : MonoBehaviour
 
         bestScoreText = GameObject.Find("BestScoreText").GetComponent<Text>();
         bestScoreShadow = GameObject.Find("BestScoreShadow").GetComponent<Text>();
+
+        menuUI = GameObject.Find("Option");
+        menuUI.SetActive(false);
 
         for(int i = 0; i <screenUIs.Length; i++)
         {
@@ -107,10 +111,15 @@ public class UIManager : MonoBehaviour
         heartCnt = 0;
     }
 
+    //버튼 클릭하여 씬 이동
     public void MoveScene(string scene) 
     {
+        SoundManager.Instance.PlaySFXSound("ButtonDown");
+        menuUI.SetActive(false);
+        
         SetScreenUI(scene);
         SceneManager.LoadScene(scene);
+        SoundManager.Instance.PlayBGMSound(scene);
         
         if(scene == "GameScene")
         {
@@ -118,6 +127,24 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.height = 0;
             SetHeightText(0);
             SetGameSceneUI();
+        }
+    }
+
+    public void ClickMenu(string type = "defalut")
+    {
+        SoundManager.Instance.PlaySFXSound("ButtonDown");
+        menuUI.SetActive(true);
+        GameManager.Instance.isGameTime = false;
+
+        if(type == "continue")
+        {
+            menuUI.SetActive(false);
+            GameManager.Instance.isGameTime = true;
+        }
+
+        if(type == "exit")
+        {
+            MoveScene("MainScene");
         }
     }
 }

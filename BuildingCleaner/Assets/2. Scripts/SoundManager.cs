@@ -51,8 +51,8 @@ public class SoundManager : MonoBehaviour
 
         bgmSource = GameObject.Find("BGMSource").GetComponent<AudioSource>();
         sfxSource = GameObject.Find("SFXSource").GetComponent<AudioSource>();
-        bgmSlider = GameObject.Find("bgmSlider").GetComponent<Slider>();
-        sfxSlider = GameObject.Find("sfxSlider").GetComponent<Slider>();
+        //bgmSlider = GameObject.Find("bgmSlider").GetComponent<Slider>();
+        //sfxSlider = GameObject.Find("sfxSlider").GetComponent<Slider>();
 
         foreach(AudioClip audioclip in sfxAudioClips)
         {
@@ -63,23 +63,27 @@ public class SoundManager : MonoBehaviour
         {
             bgmAudioClipsDic.Add(audioclip.name, audioclip);
         }
+
         bgmSlider.onValueChanged.AddListener(bgmVolume);
         sfxSlider.onValueChanged.AddListener(sfxVolume);
+    }
+
+    private void Start() 
+    {
+        PlayBGMSound("MainScene");
     }
 
     private void bgmVolume(float volume)
     {
         masterVolumeBGM = volume;
-
-        if(!sfxSource.isPlaying)
-            PlaySFXSound("Bow1",masterVolumeBGM);//소리 바꿀 것
+        bgmSource.volume = masterVolumeBGM;
     }
     private void sfxVolume(float volume)
     {
         masterVolumeSFX = volume;
 
         if(!sfxSource.isPlaying)
-            PlaySFXSound("Bow1",masterVolumeSFX);//소리 바꿀 것
+            PlaySFXSound("GetDamage",masterVolumeSFX);//소리 바꿀 것
     }
 
 
@@ -99,17 +103,22 @@ public class SoundManager : MonoBehaviour
     public void PlayBGMSound(string bgmName, float volume = 1f)
     {
         bgmSource.loop = true;
+        if(bgmName=="GameOver")
+        {
+            bgmSource.loop = false;
+        }
+        
         bgmSource.volume = volume * masterVolumeBGM;
 
         Debug.Log("bgmName = "+bgmName);
 
-         if(bgmAudioClipsDic.ContainsKey(name) == false)
+         if(bgmAudioClipsDic.ContainsKey(bgmName) == false)
         {
-            Debug.Log(name + " is not Contained audioClipsDic");
+            Debug.Log(bgmName + " is not Contained audioClipsDic");
             return;
         }
 
-        bgmSource.clip = bgmAudioClipsDic[name];
+        bgmSource.clip = bgmAudioClipsDic[bgmName];
         bgmSource.Play();
 
     }

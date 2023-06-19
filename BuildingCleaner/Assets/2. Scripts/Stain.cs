@@ -18,7 +18,7 @@ public class Stain : MonoBehaviour
         //화면에서 벗어나면
         if (!theCM.CheckTargetInCamera(this.transform))
         {
-            thePC.GetDamage();
+            thePC.GetDamage("stain");
             Destroy(this.gameObject);
         }
     }

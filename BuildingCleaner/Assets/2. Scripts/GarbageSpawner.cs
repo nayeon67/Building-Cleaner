@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GarbageSpawner : MonoBehaviour
 {
-    [SerializeField] Transform[] spawnPosition; // 생성되는 위치
+    [SerializeField] Transform[] spawnPositions; // 생성되는 위치
     [SerializeField] GameObject garbagePrefab;  // 쓰레기 프리팹
+    private Vector3 spawnPosition;
     
     void Start()
     {
@@ -19,8 +20,10 @@ public class GarbageSpawner : MonoBehaviour
         while(GameManager.Instance.isGameTime)
         {
             int positionNum = Random.Range(0, 4);
-            Instantiate(garbagePrefab, spawnPosition[positionNum]);
+            spawnPosition = spawnPositions[positionNum].position;
+            Instantiate(garbagePrefab, spawnPosition, Quaternion.identity);
             float spawnTime = Random.Range(5f, 7f);
+            SoundManager.Instance.PlaySFXSound("FallingDown");
             yield return new WaitForSeconds(spawnTime);
         }
     }
