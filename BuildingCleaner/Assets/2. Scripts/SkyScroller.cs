@@ -12,6 +12,7 @@ public class SkyScroller : MonoBehaviour
     [SerializeField] private List<GameObject> starSkys = new List<GameObject>();
     [SerializeField] private GameObject gradationImage;
     private int count;
+    private int spaceCount;
     private bool gradation;
     private Vector2 topPos;
     private enum SkyState
@@ -27,6 +28,7 @@ public class SkyScroller : MonoBehaviour
     {
         skyState = SkyState.tree;
         topPos = trees[trees.Count-1].transform.position;
+        gradation = true;
     }
 
     public void SetSkyState(int height)
@@ -49,9 +51,9 @@ public class SkyScroller : MonoBehaviour
             SpawnSky();
         }
     }
-
     private void SpawnSky()
     {
+       
         if(skyState == SkyState.tree)
         {
             trees[0].transform.position = topPos;
@@ -69,13 +71,11 @@ public class SkyScroller : MonoBehaviour
 
         else if (skyState == SkyState.space)
         {
-            if(gradation) 
-            { 
-                gradationImage.SetActive(true); 
-                gradation = false;
-                gradationImage.SetActive(false); 
+            spaceCount++;
+            if(spaceCount == 3)
+            {
+                gradationImage.SetActive(false);
             }
-
             spaceSkys[0].transform.position = topPos;
             spaceSkys[0].SetActive(true);
             spaceSkys.Add(spaceSkys[0]);

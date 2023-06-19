@@ -73,10 +73,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void GetDamage()
+    public void GetDamage(string reason = "defalut")
     {
        // playerHp--;
         theHS.SetHeartUI();
+        SoundManager.Instance.PlaySFXSound("GetDamage");
 
         if(playerHp <= 0)
         {
@@ -89,13 +90,22 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else { playerAnim.SetTrigger("getDamage"); }
+        else 
+        { 
+            //얼룩이 화면 밖으로 나갔을 때도 재생을 하면 부자연스러우니까 재생하지 않기 위해서
+            if(reason != "stain")
+            {
+                playerAnim.SetTrigger("getDamage");
+            }
+        }
+
         
     }
 
     public void Cleanning()
     {
         playerAnim.SetTrigger("Clean");
+        SoundManager.Instance.PlaySFXSound("Swing");
 
         if(isContact)
         {

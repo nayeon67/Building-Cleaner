@@ -7,14 +7,6 @@ public class Obstacle : MonoBehaviour
 {
     //위로 가기 버튼을 몇번 눌렀는지 확인할 카운트
     private int count;
-    void Start()
-    {
-    }
-
-    private void Update() 
-    {
-
-    }
     
     public void Down()
     {
