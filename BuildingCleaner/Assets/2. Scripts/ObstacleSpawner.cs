@@ -88,7 +88,18 @@ public class ObstacleSpawner : MonoBehaviour
     private void SetAmount()
     {
         //얼룩의 개수를 2~최대 생성할 수 있는 장애물 개수 -1로 지정(깨진 유리창을 하나라도 생성하기 위해)
-        stainNum = Random.Range(2, ObstacleManager.Instance.maxObstacleNum - 1);
+        int startNum = 2;
+
+        if(ObstacleManager.Instance.maxObstacleNum == 5)
+        {
+            startNum = 3;
+        }
+        if(ObstacleManager.Instance.maxObstacleNum == 7)
+        {
+            startNum = 4;
+        }
+
+        stainNum = Random.Range(startNum, ObstacleManager.Instance.maxObstacleNum - 1);
         //최대 생성할 수 있는 장애물 개수에서 얼룩의 개수를 뺀 수
         brokenGlassNum =  ObstacleManager.Instance.maxObstacleNum - stainNum;
     }
@@ -171,5 +182,7 @@ public class ObstacleSpawner : MonoBehaviour
         }
         
     }
+
+    
         
 }

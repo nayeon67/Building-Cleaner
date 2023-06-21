@@ -35,17 +35,27 @@ public class GameManager : MonoBehaviour
 
     public int height;
     private int bestHeight;
+    private bool changeBestScore;
     public float CameraSpeed;
     private void Start() 
     {
         isGameTime = true;
-        CameraSpeed = 0.1f;
+        CameraSpeed = 0.15f;
         
 
         if(PlayerPrefs.HasKey("BestScore")) 
         {
             bestHeight = PlayerPrefs.GetInt("BestScore"); 
         }
+    }
+
+    public void BackOriginState()
+    {    
+        ObstacleManager.Instance.maxObstacleNum = 3;
+        CameraSpeed = 0.15f;
+        ObstacleManager.Instance.probs = new float[3]{50.0f, 30.0f, 20.0f};  
+        height = 0;
+        isGameTime = true;
     }
 
     public void SetHeight(int value)
@@ -56,18 +66,18 @@ public class GameManager : MonoBehaviour
         if (height == 50) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 5; 
-            CameraSpeed = 0.15f;
+            CameraSpeed = 0.3f;
             
         }
         if (height == 100) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 7;
-            CameraSpeed = 0.3f;
+            CameraSpeed = 0.5f;
             ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};  
         }
         if (height == 200)
         {
-            CameraSpeed = 0.5f;
+            CameraSpeed = 0.7f;
         }
     }
 
@@ -82,9 +92,13 @@ public class GameManager : MonoBehaviour
         if(height > bestHeight)
         {
             bestHeight = height;
+            changeBestScore = true;
         }
 
+        else { changeBestScore = false; }
+
         //게임 오버 화면에 스코어 띄우기
-        UIManager.Instance.SetGameOverUI(height, bestHeight);
+        UIManager.Instance.SetGameOverUI(height, bestHeight, changeBestScore);
+        SoundManager.Instance.PlayBGMSound("GameOver");
     }
 }

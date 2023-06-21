@@ -13,18 +13,30 @@ public class GarbageSpawner : MonoBehaviour
         StartCoroutine("randSpawn");
     }
 
+    void Update() 
+    {
+        if(!GameManager.Instance.isGameTime) { StopAllCoroutines(); }
+    }
+
+    public void StartSpawn()
+    {
+        StartCoroutine("randSpawn");
+    }
+
     
     // 위치와 스폰시간을 랜덤으로 정해서 생성
     IEnumerator randSpawn()
     {
         while(GameManager.Instance.isGameTime)
         {
+            float spawnTime = Random.Range(5f, 7f);  
+            yield return new WaitForSeconds(spawnTime);
+
             int positionNum = Random.Range(0, 4);
             spawnPosition = spawnPositions[positionNum].position;
             Instantiate(garbagePrefab, spawnPosition, Quaternion.identity);
-            float spawnTime = Random.Range(5f, 7f);
             SoundManager.Instance.PlaySFXSound("FallingDown");
-            yield return new WaitForSeconds(spawnTime);
+           
         }
     }
 }

@@ -33,4 +33,9 @@ public class FallObstacle : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void Down()
+    {
+        transform.Translate(Vector3.down);
+    }
 }

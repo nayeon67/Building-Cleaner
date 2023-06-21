@@ -6,6 +6,7 @@ public class CameraMoving : MonoBehaviour
 {
     private Transform player;
     private Vector3 originPos;
+    private FallObstacle[] fallObstacles;
    
     void Start() 
     {
@@ -30,6 +31,13 @@ public class CameraMoving : MonoBehaviour
         if(transform.position.y <= originPos.y)
         {
             transform.position = originPos;
+        }
+
+        fallObstacles = FindObjectsOfType<FallObstacle>();
+
+        for(int i = 0; i < fallObstacles.Length; i++)
+        {
+            fallObstacles[i].Down();
         }
     }
 

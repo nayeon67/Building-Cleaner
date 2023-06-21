@@ -48,6 +48,14 @@ public class ObstacleManager : MonoBehaviour
         maxObstacleNum = 3;
     }
 
+    void Update()
+    {
+        if(theOS == null) 
+        {
+            theOS = FindObjectOfType<ObstacleSpawner>();
+        }
+    }
+
     public void CreateObstacle()
     {
         //장애물 위치 배열 초기화

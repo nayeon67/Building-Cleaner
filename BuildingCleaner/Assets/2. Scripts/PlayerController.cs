@@ -36,6 +36,14 @@ public class PlayerController : MonoBehaviour
         theHS = FindObjectOfType<HpSystem>();
         theSS = FindObjectOfType<SkyScroller>();
     }
+
+    private void Update() 
+    {
+        if(Input.GetKeyDown(KeyCode.W)) { SetPos("up"); }
+        else if(Input.GetKeyDown(KeyCode.A)) { SetPos("left"); }
+        else if(Input.GetKeyDown(KeyCode.S)) { SetPos("down"); }
+        else if(Input.GetKeyDown(KeyCode.D)) { SetPos("right"); }
+    }
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.tag == "stain1")
@@ -75,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage(string reason = "defalut")
     {
-       // playerHp--;
+        playerHp--;
         theHS.SetHeartUI();
         SoundManager.Instance.PlaySFXSound("GetDamage");
 
