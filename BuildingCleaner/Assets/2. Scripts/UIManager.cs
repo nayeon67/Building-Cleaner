@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     private Text bestScoreText;
     private Text bestScoreShadow;
     private GameObject menuUI;
+    private GameObject newImage;
     public int heartCnt;
 
     private void Awake() 
@@ -65,8 +66,11 @@ public class UIManager : MonoBehaviour
         bestScoreText = GameObject.Find("BestScoreText").GetComponent<Text>();
         bestScoreShadow = GameObject.Find("BestScoreShadow").GetComponent<Text>();
 
+        newImage = GameObject.Find("NewImage");
+        newImage.SetActive(false);
         menuUI = GameObject.Find("Option");
         menuUI.SetActive(false);
+        
 
         for(int i = 0; i <screenUIs.Length; i++)
         {
@@ -95,8 +99,16 @@ public class UIManager : MonoBehaviour
         scoreText.text = scoreTextShadow.text = height +".M";
     }
 
-    public void SetGameOverUI(int height, int bestHeight)
+    public void SetGameOverUI(int height, int bestHeight, bool changeBestScore)
     {
+        if(changeBestScore)
+        {
+            newImage.SetActive(true);
+        }
+        else
+        {
+            newImage.SetActive(false);
+        }
         scoreResultText.text = scoreResultShadow.text =  height + ".M";
         bestScoreText.text = bestScoreShadow.text = bestHeight + ".M";
     }
@@ -123,8 +135,7 @@ public class UIManager : MonoBehaviour
         
         if(scene == "GameScene")
         {
-            GameManager.Instance.isGameTime = true;
-            GameManager.Instance.height = 0;
+            GameManager.Instance.BackOriginState();
             SetHeightText(0);
             SetGameSceneUI();
         }
@@ -139,7 +150,10 @@ public class UIManager : MonoBehaviour
         if(type == "continue")
         {
             menuUI.SetActive(false);
+            newImage.SetActive(false);
             GameManager.Instance.isGameTime = true;
+            GarbageSpawner theGS = FindObjectOfType<GarbageSpawner>();
+            theGS.StartSpawn();
         }
 
         if(type == "exit")
