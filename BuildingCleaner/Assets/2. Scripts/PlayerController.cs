@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     //부딪힌 얼룩
     private GameObject stain;
     private CameraMoving theCM;
+    private CameraShake theCS;
     private HpSystem theHS;
     private SkyScroller theSS;
     void Start()
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         theCM = Camera.main.GetComponent<CameraMoving>();
         theHS = FindObjectOfType<HpSystem>();
         theSS = FindObjectOfType<SkyScroller>();
+        theCS = Camera.main.GetComponent<CameraShake>();
     }
 
     private void Update() 
@@ -83,8 +85,9 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage(string reason = "defalut")
     {
-        playerHp--;
-        theHS.SetHeartUI();
+        //playerHp--;
+        //theHS.SetHeartUI();
+        StartCoroutine(theCS.Shake(0.05f, 0.3f));
         SoundManager.Instance.PlaySFXSound("GetDamage");
 
         if(playerHp <= 0)
