@@ -8579,6 +8579,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6511971526528993256, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -390348729, guid: cf3f679ebb1d1aa469fc372f91dd8e03, type: 3}
     - target: {fileID: 6511971526528993262, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8634,6 +8638,14 @@ PrefabInstance:
     - target: {fileID: 7941505704030853940, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
       propertyPath: m_Offset.y
       value: 0.013545208
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941505704030853940, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941505704030853940, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}
