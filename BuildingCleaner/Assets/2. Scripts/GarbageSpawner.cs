@@ -6,6 +6,7 @@ public class GarbageSpawner : MonoBehaviour
 {
     [SerializeField] Transform[] spawnPositions; // 생성되는 위치
     [SerializeField] GameObject garbagePrefab;  // 쓰레기 프리팹
+    [SerializeField] GameObject meteorPrefab;  // 메테오 프리팹
     private Vector3 spawnPosition;
     
     void Start()
@@ -21,6 +22,7 @@ public class GarbageSpawner : MonoBehaviour
     public void StartSpawn()
     {
         StartCoroutine("randSpawn");
+        StartCoroutine("SpawnMeteor");
     }
 
     
@@ -37,6 +39,23 @@ public class GarbageSpawner : MonoBehaviour
             Instantiate(garbagePrefab, spawnPosition, Quaternion.identity);
             SoundManager.Instance.PlaySFXSound("FallingDown");
            
+        }
+    }
+
+    public IEnumerator SpawnMeteor()
+    {
+        while(GameManager.Instance.isGameTime)
+        {
+            float spawnTime = Random.Range(10f, 15f);  
+            yield return new WaitForSeconds(spawnTime);
+
+            for(int i = 0; i < 2; i++)
+            {
+                int positionNum = Random.Range(0, 4);
+                spawnPosition = spawnPositions[positionNum].position;
+                Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
+                SoundManager.Instance.PlaySFXSound("FallingDown");
+            }    
         }
     }
 }

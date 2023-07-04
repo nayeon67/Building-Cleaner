@@ -85,8 +85,8 @@ public class PlayerController : MonoBehaviour
 
     public void GetDamage(string reason = "defalut")
     {
-        //playerHp--;
-        //theHS.SetHeartUI();
+        playerHp--;
+        theHS.SetHeartUI();
         StartCoroutine(theCS.Shake(0.05f, 0.3f));
         SoundManager.Instance.PlaySFXSound("GetDamage");
 
