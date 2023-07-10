@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     private int bestHeight;
     private bool changeBestScore;
     public float CameraSpeed;
+    private GarbageSpawner theGS;
     private void Start() 
     {
         isGameTime = true;
@@ -66,18 +67,20 @@ public class GameManager : MonoBehaviour
         if (height == 50) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 5; 
-            CameraSpeed = 0.3f;
+            CameraSpeed = 0.5f;
+            theGS = FindObjectOfType<GarbageSpawner>();
+            StartCoroutine(theGS.SpawnMeteor());
             
         }
         if (height == 100) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 7;
-            CameraSpeed = 0.5f;
+            CameraSpeed = 1f;
             ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};  
         }
         if (height == 200)
         {
-            CameraSpeed = 0.7f;
+            CameraSpeed = 1.5f;
         }
     }
 

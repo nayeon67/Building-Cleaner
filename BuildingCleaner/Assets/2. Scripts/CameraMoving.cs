@@ -7,6 +7,7 @@ public class CameraMoving : MonoBehaviour
     private Transform player;
     private Vector3 originPos;
     private FallObstacle[] fallObstacles;
+    private Meteor[] meteors;
    
     void Start() 
     {
@@ -34,10 +35,16 @@ public class CameraMoving : MonoBehaviour
         }
 
         fallObstacles = FindObjectsOfType<FallObstacle>();
+        meteors = FindObjectsOfType<Meteor>();
 
         for(int i = 0; i < fallObstacles.Length; i++)
         {
             fallObstacles[i].Down();
+        }
+
+        for(int i = 0; i < meteors.Length; i++)
+        {
+            meteors[i].Down();
         }
     }
 
