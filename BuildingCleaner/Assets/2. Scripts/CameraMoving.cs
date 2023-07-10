@@ -14,39 +14,8 @@ public class CameraMoving : MonoBehaviour
         player = FindObjectOfType<PlayerController>().transform;
         originPos = transform.position;
     }
-    void Update()
-    {
-        if(!GameManager.Instance.isGameTime) { return; }
-        
-        //카메라 위로 이동
-        transform.Translate(Vector2.up * GameManager.Instance.CameraSpeed * Time.deltaTime);
-        if(!CheckTargetInCamera(player))
-        {
-            GameManager.Instance.GameOver();
-        }
-    }
 
-    public void CameraDown()
-    {
-        transform.Translate(Vector2.down);
-        if(transform.position.y <= originPos.y)
-        {
-            transform.position = originPos;
-        }
-
-        fallObstacles = FindObjectsOfType<FallObstacle>();
-        meteors = FindObjectsOfType<Meteor>();
-
-        for(int i = 0; i < fallObstacles.Length; i++)
-        {
-            fallObstacles[i].Down();
-        }
-
-        for(int i = 0; i < meteors.Length; i++)
-        {
-            meteors[i].Down();
-        }
-    }
+   
 
     public bool CheckTargetInCamera(Transform target)
     {

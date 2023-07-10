@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private int playerHp = 3; //플레이어 목숨
     private BackgroundScroller theBS;
     //플레이어 애니메이터
-    private Animator playerAnim;
+    public Animator playerAnim;
     //닦아야 하는 횟수
     private int num;
     //얼룩과 부딪혔는지
@@ -92,13 +92,7 @@ public class PlayerController : MonoBehaviour
 
         if(playerHp <= 0)
         {
-            playerAnim.SetTrigger("Die");
-            transform.DOMoveY(-3.0f, 3f);
-
-            if(transform.position.y <= -3.0f) 
-            {
-                GameManager.Instance.GameOver();
-            }
+            GameManager.Instance.GameOver();  
         }
 
         else 
@@ -154,8 +148,6 @@ public class PlayerController : MonoBehaviour
                 }
                 //하늘 한 칸 내리기
                 theSS.SkyDown();
-                //카메라 한 칸 내리기
-                theCM.CameraDown();
             } 
             else 
             { 
@@ -165,6 +157,11 @@ public class PlayerController : MonoBehaviour
 
             GameManager.Instance.SetHeight(1);
             theSS.SetSkyState(GameManager.Instance.height);
+            UIManager.Instance.curTimeLimit += 1f;
+            if(UIManager.Instance.curTimeLimit >= GameManager.Instance.timeLimit)
+            {
+                UIManager.Instance.curTimeLimit = GameManager.Instance.timeLimit;
+            }
         }
         else if (button == "down" && playerPosY != 1)
         {

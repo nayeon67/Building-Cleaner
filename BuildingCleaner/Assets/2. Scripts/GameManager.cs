@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,24 +37,25 @@ public class GameManager : MonoBehaviour
     public int height;
     private int bestHeight;
     private bool changeBestScore;
-    public float CameraSpeed;
+    public float timeLimit;
     private GarbageSpawner theGS;
+    private Animator playerAnim;
     private void Start() 
     {
         isGameTime = true;
-        CameraSpeed = 0.15f;
         
-
         if(PlayerPrefs.HasKey("BestScore")) 
         {
             bestHeight = PlayerPrefs.GetInt("BestScore"); 
         }
+        timeLimit = UIManager.Instance.curTimeLimit = 30.0f;
     }
 
     public void BackOriginState()
     {    
         ObstacleManager.Instance.maxObstacleNum = 3;
-        CameraSpeed = 0.15f;
+        timeLimit = UIManager.Instance.curTimeLimit = 30.0f;
+        StartCoroutine(UIManager.Instance.SetTimeLimit());
         ObstacleManager.Instance.probs = new float[3]{50.0f, 30.0f, 20.0f};  
         height = 0;
         isGameTime = true;
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
         if (height == 50) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 5; 
-            CameraSpeed = 0.5f;
+            timeLimit = UIManager.Instance.curTimeLimit = 15.0f;
             theGS = FindObjectOfType<GarbageSpawner>();
             StartCoroutine(theGS.SpawnMeteor());
             
@@ -75,12 +77,12 @@ public class GameManager : MonoBehaviour
         if (height == 100) 
         { 
             ObstacleManager.Instance.maxObstacleNum = 7;
-            CameraSpeed = 1f;
+            timeLimit = UIManager.Instance.curTimeLimit = 10.0f;
             ObstacleManager.Instance.probs = new float[3]{30.0f, 40.0f, 30.0f};  
         }
         if (height == 200)
         {
-            CameraSpeed = 1.5f;
+            timeLimit = UIManager.Instance.curTimeLimit = 5.0f;
         }
     }
 
@@ -88,6 +90,9 @@ public class GameManager : MonoBehaviour
     {
         isGameTime = false;
         UIManager.Instance.SetScreenUI("GameOver");
+        playerAnim = FindObjectOfType<Animator>();
+        playerAnim.SetTrigger("Die");
+        playerAnim.gameObject.transform.DOMoveY(-3.0f, 3f);
 
         PlayerPrefs.SetInt("BestScore", bestHeight);
 

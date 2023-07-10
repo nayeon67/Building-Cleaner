@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameTime: 0
   height: 0
-  CameraSpeed: 0
+  timeLimit: 0
 --- !u!4 &439959998
 Transform:
   m_ObjectHideFlags: 0
@@ -8553,28 +8553,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaa0221a7192a1543bfc23be1eceec4f, type: 3}
---- !u!1 &6100291535819950481 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6100291535617490762, guid: eaa0221a7192a1543bfc23be1eceec4f, type: 3}
-  m_PrefabInstance: {fileID: 6100291535819950480}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6100291535819950482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6100291535819950481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae4abd9facb80c4c87cd7a05011093d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brokenGlass: {fileID: 3262017516015905314, guid: 879fbf0b709a14948b989f4c6ebbac3e, type: 3}
-  stains:
-  - {fileID: 1938128838081123231, guid: 6774de3188b5f9748b7bcbcdeba66439, type: 3}
-  - {fileID: 6086563085886145819, guid: 3e842f65d7da3024796d1018003ba3d4, type: 3}
-  - {fileID: 6842323520352649734, guid: 5898a6bf96586a4409263b3ba8c0a547, type: 3}
 --- !u!114 &7358212498648923997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2045176973260468120, guid: 78a43beeff6fc9641b96bf513e934373, type: 3}

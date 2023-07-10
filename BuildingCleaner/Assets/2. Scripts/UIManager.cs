@@ -34,6 +34,9 @@ public class UIManager : MonoBehaviour
     private Text bestScoreShadow;
     private GameObject menuUI;
     private GameObject newImage;
+    private Image redImage;
+    private Slider timeLimitSlider;
+    public float curTimeLimit;
     public int heartCnt;
 
     private void Awake() 
@@ -70,6 +73,9 @@ public class UIManager : MonoBehaviour
         newImage.SetActive(false);
         menuUI = GameObject.Find("Option");
         menuUI.SetActive(false);
+
+        timeLimitSlider = GameObject.Find("TimeLimit").GetComponent<Slider>();
+        redImage = GameObject.Find("RedImage").GetComponent<Image>();
         
 
         for(int i = 0; i <screenUIs.Length; i++)
@@ -92,6 +98,7 @@ public class UIManager : MonoBehaviour
         {
             uiDic[name].SetActive(true);
         }
+
     }
 
     public void SetHeightText(int height)
@@ -136,6 +143,7 @@ public class UIManager : MonoBehaviour
         if(scene == "GameScene")
         {
             GameManager.Instance.BackOriginState();
+            StartCoroutine(SetTimeLimit());
             SetHeightText(0);
             SetGameSceneUI();
         }
@@ -146,6 +154,7 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlaySFXSound("ButtonDown");
         menuUI.SetActive(true);
         GameManager.Instance.isGameTime = false;
+        StopAllCoroutines();
 
         if(type == "continue")
         {
@@ -154,11 +163,34 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.isGameTime = true;
             GarbageSpawner theGS = FindObjectOfType<GarbageSpawner>();
             theGS.StartSpawn();
+            StartCoroutine(SetTimeLimit());
         }
 
         if(type == "exit")
         {
             MoveScene("MainScene");
+        }
+    }
+
+    public IEnumerator SetTimeLimit()
+    {
+        Color color;
+        while(GameManager.Instance.isGameTime)
+        {
+            timeLimitSlider.value = curTimeLimit/GameManager.Instance.timeLimit;
+
+            color = redImage.color;
+            color.a = 1 - (curTimeLimit/GameManager.Instance.timeLimit);
+            redImage.color = color;
+
+            yield return new WaitForSeconds(1f);
+            curTimeLimit--;
+
+            if(curTimeLimit <= 0)
+            {
+                GameManager.Instance.GameOver();
+                StopAllCoroutines();
+            }
         }
     }
 }
